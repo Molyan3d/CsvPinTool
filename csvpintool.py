@@ -1,10 +1,8 @@
 import csv
 import os
 
-# Search for the "emotes.csv" file in the same directory as this script
 emotes_file = "emotes.csv"
 
-# credits
 PACKAGE_VERSION = "\033[32m1.0\033[0m"
 AUTHOR = "\033[32m@molyan & @daviwow\033[0m"
 GITHUB_LINK = "\033[32mgithub.com/Molyan3d/CsvPinTool\033[0m"
@@ -19,18 +17,14 @@ def print_credits() -> None:
     info(GITHUB_LINK)
     info(COPYRIGHT_DESC)
 
-#print credits
 print_credits()
 
-# Define the list of pin types
 pin_types = ["None", "angry", "gg", "happy", "phew", "sad", "thanks", "special"]
 
-# Display the list of pin types
 print("Choose one of these options: ")
 for i, pin_type in enumerate(pin_types):
     print(f"{i}: {pin_type}")
 
-# Ask for user input for pin type
 while True:
     try:
         pin_type = int(input("Enter the option number (0-7): "))
@@ -41,13 +35,10 @@ while True:
     except ValueError:
         print("Invalid input. Please enter a number between 0 and 7.")
 
-# Ask for user input for brawler name
 brawler_name = input("Enter brawler name: ")
 
-# Add prefix "emoji_" to brawler name
 brawler_name = "emoji_" + brawler_name
 
-# Filter out duplicate character names from the "emotes.csv" file
 characters = []
 with open(emotes_file, mode='r') as file:
     reader = csv.reader(file)
@@ -57,12 +48,10 @@ with open(emotes_file, mode='r') as file:
         if character_name not in characters:
             characters.append(character_name)
 
-# Display the list of characters
 print("Characters:")
 for i, character_name in enumerate(characters):
     print(f"{i}: {character_name}")
 
-# Ask for user input for character name
 while True:
     try:
         character_index = int(input("Enter character relative number: "))
@@ -73,10 +62,8 @@ while True:
     except ValueError:
         print("Invalid input. Please enter a valid index.")
 
-# Use the selected character name as the default code name
 code_name = characters[character_index]
 
-# Define column values based on pin type
 if pin_type == 1:
     suffix = "angry"
     col_8 = "0"
@@ -118,15 +105,12 @@ elif pin_type == 0:
     col_9 = ""
     col_10 = ""
 
-# Ask for user input for SC file name, code name, and export name
 sc_file_name = input("Enter the SC file name (Example: ui.sc): ")
 code_name = input("Enter code name (Example: Undertaker): ")
 export_name = input("Enter export name (The one used in the .sc): ")
 
-# Add prefix "sc/" to SC file name
 sc_file_name = "sc/" + sc_file_name
 
-# Create new row with column values and append to the "emotes.csv" file
 new_row = [brawler_name + "_" + suffix, "", sc_file_name, export_name, code_name, "", "", col_8, col_9, col_10]
 with open(emotes_file, mode='a', newline='') as file:
     writer = csv.writer(file)
